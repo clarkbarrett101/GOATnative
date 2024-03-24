@@ -1,52 +1,109 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Text, StyleSheet } from "react-native";
+import Gyro from "./Gyro";
 
-function Reel(appMode, setAppMode) {
-  const frames = [];
-  const tolerance = 1;
-  const comulative_score = score;
-  const score = 100;
-  const error = 1;
+function Reel(props) {
+  const [frames, setFrames] = useState([]);
+  const tolerance = 2;
   const letters = ["S", "A", "B", "C", "D", "F"];
   const minScore = 0;
   const maxScore = 100;
   const checkSensitivity = 0.5;
-  const offset = [0.0, 0.0, 0.0];
+  const gyro = new Gyro();
+  const gracePeriod = 3;
+  const fps = 10;
 
-  function addFrame(frame) {
-    frames.push(frame);
-    return checkForRepeat(frame);
+  useEffect(() => {
+    update();
+  }, [props.currentFrame, props.appMode]);
+
+  const update = () => {
+    switch (props.appMode) {
+      case "noRecording":
+        break;
+      case "idle":
+        break;
+      case "recording":
+        recording();
+        break;
+      case "comparing":
+        comparing();
+        break;
+      default:
+        break;
+    }
+  };
+  function recording() {
+    if (addFrame(gyro.getFrame())) {
+      console.log("Repeat detected");
+      props.setAppMode("comparing");
+      props.setCurrentFrame(0);
+    }
+  }
+  function comparing() {
+    compareGyroFrame(props.currentFrame);
+    if (props.currentFrame >= frames.length - 1) {
+      console.log("Comparison complete");
+      props.setCurrentFrame(0);
+    }
   }
 
-  function getFrame(index) {
-    return frames[index];
-  }
-  function reset() {
-    frames = [];
-    score = 100;
-  }
-  function calculateDifference(index, gyroFrame) {
+  const addFrame = (frame) => {
+    setFrames([...frames, frame]);
+    const repeat = checkForRepeat(frame);
+    if (props.currentFrame < gracePeriod * fps && repeat) {
+      repeat = false;
+    }
+    return repeat;
+  };
+
+  const checkForRepeat = (gyroFrame) => {
+    if (frames.length < 100) {
+      return false;
+    }
+
+    let isRepeat = false;
+    let firstFrame = frames[0];
+    let diff = 0;
+
+    for (let i = 0; i < 3; i++) {
+      diff += Math.abs(gyroFrame[i] - firstFrame[i]);
+    }
+
+    if (diff <= checkSensitivity) {
+      isRepeat = true;
+    }
+
+    return isRepeat;
+  };
+
+  const compareGyroFrame = (frameIdx) => {
+    console.log("Score: " + props.score);
+    let adjustedDifference = -calculateDifference(frameIdx) + tolerance;
+    props.setScore(
+      Math.max(minScore, Math.min(maxScore, props.score + adjustedDifference))
+    );
+  };
+
+  const calculateDifference = (index) => {
+    let gyroFrame = gyro.getFrame();
     let frame = frames[index];
     let magnitude =
       (frame[0] - gyroFrame[0]) ** 2 +
       (frame[1] - gyroFrame[1]) ** 2 +
       (frame[2] - gyroFrame[2]) ** 2;
     return Math.sqrt(magnitude);
+  };
+  function getFrame() {
+    try {
+      return frames[props.currentFrame];
+    } catch (e) {
+      return [0, 0, 0];
+    }
   }
 
-  function compareGyroFrame(frameIdx, gyroFrame) {
-    let difference = calculateDifference(frameIdx, gyroFrame);
-    let adjustedDifference = difference * tolerance;
-    const score = Math.max(
-      minScore,
-      Math.min(maxScore, score + adjustedDifference * 100)
-    );
-  }
-
-  function getScore() {
-    return score;
-  }
-
-  function getLetter() {
+  const getLetter = () => {
+    let i;
     if (score >= 90) {
       i = 0;
     } else if (score >= 70) {
@@ -61,28 +118,22 @@ function Reel(appMode, setAppMode) {
       i = 5;
     }
     return letters[i];
-  }
+  };
 
-  function checkForRepeat(currentFrame) {
-    if (frames.length < 100) {
-      return false;
-    }
-
-    let isRepeat = false;
-    let firstFrame = frames[0];
-    let diff = 0;
-
-    for (let i = 0; i < 3; i++) {
-      diff += Math.abs(currentFrame[i] - firstFrame[i]);
-    }
-    console.log(diff);
-
-    if (diff <= checkSensitivity) {
-      isRepeat = true;
-    }
-
-    return isRepeat;
-  }
+  return (
+    <>
+      <Text style={{ top: 400, left: 450, fontSize: 32, position: "absolute" }}>
+        {props.currentFrame}
+        {" /"} {frames.length}
+        {"\n"}
+        {getFrame()}
+      </Text>
+      <Text style={{ top: 400, left: 125, fontSize: 32, position: "absolute" }}>
+        {props.currentFrame}
+        {"\n"} {gyro.getFrame()}
+      </Text>
+    </>
+  );
 }
 
 export default Reel;

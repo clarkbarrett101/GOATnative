@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 
 const styles = StyleSheet.create({
   RecordButton: {
@@ -42,10 +49,19 @@ const styles = StyleSheet.create({
   },
 });
 
-class RecordButton extends React.Component {
-  render() {
-    return (
-      <View style={styles.RecordButton}>
+function RecordButton(props) {
+  function handleTouch() {
+    if (props.appMode === "recording") {
+      console.log("Recording stopped");
+      props.setAppMode("idle");
+    } else {
+      console.log("Recording started");
+      props.setAppMode("recording");
+    }
+  }
+  return (
+    <View style={styles.RecordButton}>
+      <TouchableOpacity onPress={handleTouch}>
         <View style={styles.BottomLayer}>
           <Image
             source={require("../assets/record_inactive.png")}
@@ -53,8 +69,9 @@ class RecordButton extends React.Component {
           />
           <Text style={styles.Text}>Record</Text>
         </View>
-      </View>
-    );
-  }
+      </TouchableOpacity>
+    </View>
+  );
 }
+
 export { RecordButton };
