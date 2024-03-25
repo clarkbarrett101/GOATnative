@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import Gyro from "./Gyro";
+import RealTimeLineGraph from "./RealTimeLineGraph";
 
 function Reel(props) {
   const [frames, setFrames] = useState([]);
+  const [data, setData] = useState([]);
   const tolerance = 2;
   const letters = ["S", "A", "B", "C", "D", "F"];
+  const graphWidth = 300;
+  const graphHeight = 200;
   const minScore = 0;
   const maxScore = 100;
   const checkSensitivity = 0.5;
@@ -58,10 +62,6 @@ function Reel(props) {
   };
 
   const checkForRepeat = (gyroFrame) => {
-    if (frames.length < 100) {
-      return false;
-    }
-
     let isRepeat = false;
     let firstFrame = frames[0];
     let diff = 0;
@@ -119,9 +119,23 @@ function Reel(props) {
     }
     return letters[i];
   };
+  function calcGraphData() {
+    let diffs = [];
+    const firstFrame = frames[0];
+    for (let i = 0; i < frames.length; i++) {
+      const frame = frames[i];
+      let diff = 0;
+      for (let i = 0; i < 3; i++) {
+        diff += Math.abs(frame[i] - firstFrame[i]);
+      }
+      diffs.push(diff);
+    }
+    setData(diffs);
+  }
 
   return (
     <>
+      <RealTimeLineGraph data={data} width={graphWidth} height={graphHeight} />
       <Text style={{ top: 400, left: 450, fontSize: 32, position: "absolute" }}>
         {props.currentFrame}
         {" /"} {frames.length}
