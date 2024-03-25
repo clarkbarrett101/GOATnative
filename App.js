@@ -1,18 +1,11 @@
 import { StatusBar } from "expo-status-bar";
+import { Tracker } from "./src/Tracker";
 import { StyleSheet, Text, View } from "react-native";
-import { RecordButton } from "./src/RecordButton";
-import { CompareButton } from "./src/CompareButton";
-import { BackDrop } from "./src/BackDrop";
-import { Score } from "./src/Score";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Score />
-      <BackDrop />
-      <RecordButton />
-      <CompareButton />
-      <StatusBar style="auto" />
+      <Tracker />
     </View>
   );
 }
