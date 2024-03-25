@@ -10,3 +10,8 @@
 - Paste the stylesheet into the .jsx file
 - In App.js, import your component
 - Replace whatever is in the app section with you're component to see if it looks right
+
+(state) mode
+score 
+gyro data
+(ref) reels
