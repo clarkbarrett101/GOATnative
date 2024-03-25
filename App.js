@@ -4,15 +4,17 @@ import { RecordButton } from "./src/RecordButton";
 import { CompareButton } from "./src/CompareButton";
 import { BackDrop } from "./src/BackDrop";
 import { Score } from "./src/Score";
+import {MainMenu} from "./src/MainMenu";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Score />
-      <BackDrop />
+      
+     
       <RecordButton />
       <CompareButton />
-      <StatusBar style="auto" />
+      <MainMenu />
+      
     </View>
   );
 }
