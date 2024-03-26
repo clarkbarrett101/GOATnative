@@ -1,20 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import { Tracker } from "./src/Tracker";
-import { StyleSheet, Text, View } from "react-native";
+
+import { OldGoat } from "./src/OldGoat";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Tracker />
-    </View>
-  );
+  return <OldGoat />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   CompareButton: {
@@ -37,10 +37,21 @@ const styles = StyleSheet.create({
     color: "rgba(8, 51, 68, 0.5)",
   },
 });
-class CompareButton extends React.Component {
-  render() {
-    return (
-      <View style={styles.CompareButton}>
+function CompareButton(props) {
+  function handleTouch() {
+    if (props.appMode === "noRecording" || props.appMode === "recording") {
+      return;
+    } else if (props.appMode === "comparing") {
+      console.log("Comparing stopped");
+      props.setAppMode("idle");
+    } else {
+      console.log("Comparing started");
+      props.setAppMode("comparing");
+    }
+  }
+  return (
+    <View style={styles.CompareButton}>
+      <TouchableOpacity onPress={handleTouch}>
         <View style={styles.BottomLayer}>
           <Image
             source={require("../assets/compare_inactive.png")}
@@ -48,8 +59,8 @@ class CompareButton extends React.Component {
           />
           <Text style={styles.Text}>Compare</Text>
         </View>
-      </View>
-    );
-  }
+      </TouchableOpacity>
+    </View>
+  );
 }
 export { CompareButton };
