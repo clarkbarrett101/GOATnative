@@ -1,29 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { RecordButton } from "./src/RecordButton";
-import { CompareButton } from "./src/CompareButton";
-import { BackDrop } from "./src/BackDrop";
-import { Score } from "./src/Score";
-import {MainMenu} from "./src/MainMenu";
+
+import { OldGoat } from "./src/OldGoat";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      
-     
-      <RecordButton />
-      <CompareButton />
-      <MainMenu />
-      
-    </View>
-  );
+  return <OldGoat />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

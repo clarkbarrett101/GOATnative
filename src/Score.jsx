@@ -40,22 +40,20 @@ const styles = StyleSheet.create({
     top: 50,
     fontStyle: "normal",
     fontWeight: "800",
-    fontSize: 128,
+    fontSize: 36,
     lineHeight: 155,
     color: "#450A0A",
   },
 });
 
-class Score extends React.Component {
-  render() {
-    return (
-      <View style={styles.ScoreDisplay}>
-        <View style={styles.Rectangle6} />
-        <Text style={styles.LetterS}>S</Text>
-        <Text style={styles.ScoreText}>Score:</Text>
-      </View>
-    );
-  }
+function Score(props) {
+  return (
+    <View style={styles.ScoreDisplay}>
+      <View style={styles.Rectangle6} />
+      <Text style={styles.LetterS}>{props.score}</Text>
+      <Text style={styles.ScoreText}>Score:</Text>
+    </View>
+  );
 }
 
 export { Score };
