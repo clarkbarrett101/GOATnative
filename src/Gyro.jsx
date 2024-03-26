@@ -4,11 +4,17 @@ class Gyro {
       console.log("Gyro class");
       this.testMod = 0;
       this.getFrame = () => {
-        this.testMod += 0.1;
+        this.testMod += 0.05;
         return [
-          Math.round(Math.sin(this.testMod) * 10) / 10,
-          Math.round(Math.sin(this.testMod * 2) * 10) / 10,
-          Math.round(Math.sin(this.testMod / 2) * 10) / 10,
+          Math.random() / 10 -
+            0.05 +
+            Math.round(Math.sin(this.testMod) * 10) / 10,
+          Math.random() / 10 -
+            0.05 +
+            Math.round(Math.sin(this.testMod) * 10) / 10,
+          Math.random() / 10 -
+            0.05 +
+            Math.round(Math.sin(this.testMod) * 10) / 10,
         ];
       };
       Gyro.instance = this;
