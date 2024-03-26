@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import Gyro from "./Gyro";
-import RealTimeLineGraph from "./RealTimeLineGraph";
+import { Svg, Polyline, Circle, Line } from "react-native-svg";
 
 function Reel(props) {
   const [frames, setFrames] = useState([]);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("0,0 0,0");
+  const [dotx, setDotx] = useState(0);
+  const [doty, setDoty] = useState(0);
   const tolerance = 2;
   const letters = ["S", "A", "B", "C", "D", "F"];
-  const graphWidth = 300;
+  const [status, setStatus] = useState(0);
+  const graphWidth = 500;
   const graphHeight = 200;
   const minScore = 0;
   const maxScore = 100;
-  const checkSensitivity = 0.5;
+  const checkSensitivity = 0.3;
   const gyro = new Gyro();
-  const gracePeriod = 3;
+  const gracePeriod = 1;
   const fps = 10;
 
   useEffect(() => {
@@ -41,6 +44,7 @@ function Reel(props) {
     if (addFrame(gyro.getFrame())) {
       console.log("Repeat detected");
       props.setAppMode("comparing");
+      calcGraphData();
       props.setCurrentFrame(0);
     }
   }
@@ -55,14 +59,16 @@ function Reel(props) {
   const addFrame = (frame) => {
     setFrames([...frames, frame]);
     const repeat = checkForRepeat(frame);
-    if (props.currentFrame < gracePeriod * fps && repeat) {
-      repeat = false;
-    }
+    updateDot();
     return repeat;
   };
 
   const checkForRepeat = (gyroFrame) => {
+    if (frames.length < gracePeriod * fps) {
+      return false;
+    }
     let isRepeat = false;
+    console.log(frames.length);
     let firstFrame = frames[0];
     let diff = 0;
 
@@ -78,8 +84,10 @@ function Reel(props) {
   };
 
   const compareGyroFrame = (frameIdx) => {
+    updateDot();
     console.log("Score: " + props.score);
     let adjustedDifference = -calculateDifference(frameIdx) + tolerance;
+    updateGraphDot();
     props.setScore(
       Math.max(minScore, Math.min(maxScore, props.score + adjustedDifference))
     );
@@ -120,7 +128,9 @@ function Reel(props) {
     return letters[i];
   };
   function calcGraphData() {
-    let diffs = [];
+    let graphString = "";
+    const widthMod = graphWidth / frames.length;
+
     const firstFrame = frames[0];
     for (let i = 0; i < frames.length; i++) {
       const frame = frames[i];
@@ -128,24 +138,61 @@ function Reel(props) {
       for (let i = 0; i < 3; i++) {
         diff += Math.abs(frame[i] - firstFrame[i]);
       }
-      diffs.push(diff);
+      graphString +=
+        Math.round(widthMod * i) +
+        "," +
+        (graphHeight - Math.round((diff * graphHeight) / 6)) +
+        " ";
     }
-    setData(diffs);
+    setData(graphString);
+  }
+  function updateGraphDot() {
+    let diff = 0;
+    const frame = frames[props.currentFrame];
+    const firstFrame = frames[0];
+    for (let i = 0; i < 3; i++) {
+      diff += Math.abs(frame[i] - firstFrame[i]);
+    }
+    setStatus(graphHeight - (diff * graphHeight) / 6);
+  }
+  function updateDot() {
+    if (frames.length === 0) return;
+    const frame = gyro.getFrame();
+    const firstFrame = frames[0];
+    let diff = 0;
+    for (let i = 0; i < 3; i++) {
+      diff += Math.abs(frame[i] - firstFrame[i]);
+    }
+    const widthMod = graphWidth / frames.length;
+    setDotx(widthMod * props.currentFrame);
+    setDoty(graphHeight - (diff * graphHeight) / 6);
   }
 
   return (
     <>
-      <RealTimeLineGraph data={data} width={graphWidth} height={graphHeight} />
-      <Text style={{ top: 400, left: 450, fontSize: 32, position: "absolute" }}>
-        {props.currentFrame}
-        {" /"} {frames.length}
-        {"\n"}
-        {getFrame()}
-      </Text>
-      <Text style={{ top: 400, left: 125, fontSize: 32, position: "absolute" }}>
-        {props.currentFrame}
-        {"\n"} {gyro.getFrame()}
-      </Text>
+      <Svg
+        height={graphHeight}
+        width={graphWidth}
+        style={{ top: 400, left: 150 }}
+      >
+        <Polyline points={data} fill="none" stroke="black" strokeWidth="12" />
+        <Line x1={dotx} y1={0} x2={dotx} y2={graphHeight} stroke="black" />
+        <Circle cx={dotx} cy={status} r="12" fill="white" />
+        <Line
+          x1={dotx}
+          y1={status}
+          x2={dotx}
+          y2={doty}
+          stroke="red"
+          strokeWidth={5}
+        />
+        <Circle
+          cx={dotx}
+          cy={doty}
+          r="10"
+          fill={status > 0.5 ? "red" : "green"}
+        />
+      </Svg>
     </>
   );
 }

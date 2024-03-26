@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   Rectangle5: {
     position: "absolute",
-    width: 250,
+    width: 580,
     height: 400,
     left: 100,
     top: 300,
@@ -92,9 +92,6 @@ class BackDrop extends React.Component {
         />
         {/* <View style={styles.PlaceholderLogo} /> */}
         <View style={styles.Rectangle5} />
-        <Text style={styles.LiveView}>Live View</Text>
-        <View style={styles.Rectangle4} />
-        <Text style={styles.Recorded}>Recorded</Text>
       </View>
     );
   }

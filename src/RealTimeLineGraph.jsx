@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Svg, Path } from "react-native-svg";
-import * as d3Scale from "d3-scale";
 
 const RealTimeLineGraph = ({ data, width, height }) => {
   const [path, setPath] = useState("");
@@ -20,8 +19,13 @@ const RealTimeLineGraph = ({ data, width, height }) => {
 
   return (
     <View>
-      <Svg width={width} height={height}>
-        <Path d={path} fill="none" stroke="blue" strokeWidth="2" />
+      <Svg height="100" width="100">
+        <Polyline
+          points="10,10 20,12 30,20 40,60 60,70 95,90"
+          fill="none"
+          stroke="black"
+          strokeWidth="3"
+        />
       </Svg>
     </View>
   );
