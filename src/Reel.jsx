@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
-import Gyro from "./Gyro";
+import { Gyro } from "./Gyro";
 import { Svg, Polyline, Circle, Line } from "react-native-svg";
 
 function Reel(props) {
@@ -8,17 +8,13 @@ function Reel(props) {
   const [data, setData] = useState("0,0 0,0");
   const [dotx, setDotx] = useState(0);
   const [doty, setDoty] = useState(0);
-  const tolerance = 2;
   const letters = ["S", "A", "B", "C", "D", "F"];
   const [status, setStatus] = useState(0);
   const graphWidth = 500;
   const graphHeight = 200;
   const minScore = 0;
   const maxScore = 100;
-  const checkSensitivity = 0.3;
   const gyro = new Gyro();
-  const gracePeriod = 1;
-  const fps = 10;
 
   useEffect(() => {
     update();
@@ -64,11 +60,10 @@ function Reel(props) {
   };
 
   const checkForRepeat = (gyroFrame) => {
-    if (frames.length < gracePeriod * fps) {
+    if (frames.length < props.gracePeriod * props.fps) {
       return false;
     }
     let isRepeat = false;
-    console.log(frames.length);
     let firstFrame = frames[0];
     let diff = 0;
 
@@ -76,7 +71,7 @@ function Reel(props) {
       diff += Math.abs(gyroFrame[i] - firstFrame[i]);
     }
 
-    if (diff <= checkSensitivity) {
+    if (diff <= props.checkSensitivity) {
       isRepeat = true;
     }
 
@@ -86,7 +81,7 @@ function Reel(props) {
   const compareGyroFrame = (frameIdx) => {
     updateDot();
     console.log("Score: " + props.score);
-    let adjustedDifference = -calculateDifference(frameIdx) + tolerance;
+    let adjustedDifference = -calculateDifference(frameIdx) + props.tolerance;
     updateGraphDot();
     props.setScore(
       Math.max(minScore, Math.min(maxScore, props.score + adjustedDifference))
@@ -102,13 +97,6 @@ function Reel(props) {
       (frame[2] - gyroFrame[2]) ** 2;
     return Math.sqrt(magnitude);
   };
-  function getFrame() {
-    try {
-      return frames[props.currentFrame];
-    } catch (e) {
-      return [0, 0, 0];
-    }
-  }
 
   const getLetter = () => {
     let i;
@@ -168,9 +156,11 @@ function Reel(props) {
     setDoty(graphHeight - (diff * graphHeight) / 6);
   }
 
-  return (
-    <>
-      <Svg
+  return <></>;
+}
+
+export { Reel };
+/*<Svg
         height={graphHeight}
         width={graphWidth}
         style={{ top: 400, left: 150 }}
@@ -193,8 +183,4 @@ function Reel(props) {
           fill={status > 0.5 ? "red" : "green"}
         />
       </Svg>
-    </>
-  );
-}
-
-export default Reel;
+*/

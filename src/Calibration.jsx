@@ -1,3 +1,5 @@
+import React from 'react';
+import { View, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -115,5 +117,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
-cd
+const Calibration = () => {
+  return (
+    <View style={styles.calibrateScreen}>
+      <View style={styles.backButton}>
+        {/* Your back button content */}
+      </View>
+      {/* Other components styled similarly */}
+    </View>
+  );
+};
+export  {Calibration};

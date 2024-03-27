@@ -1,15 +1,18 @@
-import Reel from "./Reel";
 import { useEffect, useState } from "react";
-import { RecordButton } from "./RecordButton";
-import { CompareButton } from "./CompareButton";
-import { Score } from "./Score";
+import { Reel, Calibration, MainMenu, Tracker, Settings } from "./index";
 
 function Driver() {
+  const pages = ["mainMenu", "calibration", "tracker", "settings"];
+  const [currentPage, setCurrentPage] = useState(pages[3]);
   let modes = ["noRecording", "idle", "recording", "comparing"];
   const [appMode, setAppMode] = useState(modes[0]);
   const [score, setScore] = useState(100);
   const [currentFrame, setCurrentFrame] = useState(0);
-  const fps = 10;
+  const [tolerance, setTolerance] = useState(2);
+  const [loopThreshold, setLoopThreshold] = useState(0.3);
+  const [gracePeriod, setGracePeriod] = useState(1);
+  const [fps, setFps] = useState(10);
+
   function update() {
     if (appMode === "recording" || appMode === "comparing") {
       setCurrentFrame(currentFrame + 1);
@@ -20,15 +23,33 @@ function Driver() {
     return () => clearInterval(interval);
   }, [currentFrame, appMode]);
 
+  function loadPage() {
+    switch (currentPage) {
+      case "mainMenu":
+        return <MainMenu setCurrentPage={setCurrentPage} />;
+      case "calibration":
+        return <Calibration setCurrentPage={setCurrentPage} />;
+      case "tracker":
+        return <Tracker />;
+      case "settings":
+        return (
+          <Settings
+            tolerance={tolerance}
+            setTolerance={setTolerance}
+            loopThreshold={loopThreshold}
+            setLoopThreshold={setLoopThreshold}
+            gracePeriod={gracePeriod}
+            setGracePeriod={setGracePeriod}
+          />
+        );
+      default:
+        return <MainMenu setCurrentPage={setCurrentPage} />;
+    }
+  }
+
   return (
     <>
-      <Score score={score} />
-      <RecordButton
-        style={{ zIndex: 3 }}
-        appMode={appMode}
-        setAppMode={setAppMode}
-      />
-      <CompareButton appMode={appMode} setAppMode={setAppMode} />
+      {loadPage()}
       <Reel
         currentFrame={currentFrame}
         setCurrentFrame={setCurrentFrame}
@@ -36,6 +57,10 @@ function Driver() {
         setAppMode={setAppMode}
         score={score}
         setScore={setScore}
+        tolerance={tolerance}
+        loopThreshold={loopThreshold}
+        gracePeriod={gracePeriod}
+        fps={fps}
       />
     </>
   );

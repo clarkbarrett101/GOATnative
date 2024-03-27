@@ -24,4 +24,4 @@ class Gyro {
   }
 }
 
-export default Gyro;
+export { Gyro };
