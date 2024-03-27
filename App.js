@@ -8,11 +8,12 @@ import { Score } from "./src/Score";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Score />
-      <BackDrop />
+      
+     
       <RecordButton />
       <CompareButton />
-      <StatusBar style="auto" />
+      <MainMenu />
+      
     </View>
   );
 }
