@@ -1,28 +1,70 @@
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+
+// Get device screen dimensions
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+
+// Define desired target resolution
+const targetWidth = 1280;
+const targetHeight = 2228;
+
+// Calculate scale factors
+const widthScale = screenWidth / targetWidth;
+const heightScale = screenHeight / targetHeight;
+
+const scaledSize = (size) => Math.ceil(size * widthScale);
+const scaledHeight = (height) => Math.ceil(height * heightScale);
+const scaledTop = (top) => Math.ceil(top * heightScale);
+
+const originalImageWidth = 741; // Replace with your image's actual width
+const originalImageHeight = 749; // Replace with your image's actual height
+
+// Calculate scaled dimensions for the image
+const imageScale = Math.min(widthScale, heightScale);
+const scaledImageWidth = originalImageWidth * imageScale;
+const scaledImageHeight = originalImageHeight * imageScale;
 
 const MainMenu = () => {
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/goat_logo.png")} style={styles.Icon} />
+      <Image
+        source={require("../assets/goat_logo.png")}
+        style={styles.placeholderLogo}
+      />
 
-      {/* Tracker Button */}
-      <View style={styles.trackerButton}>
+      <View
+        style={[
+          styles.trackerButton,
+          { top: scaledTop(900), height: scaledHeight(238) },
+        ]}
+      >
         <Text style={styles.trackerText}>Workout Tracker</Text>
       </View>
 
-      {/* Planner Button */}
-      <View style={styles.plannerButton}>
+      <View
+        style={[
+          styles.plannerButton,
+          { top: scaledTop(1200), height: scaledHeight(238) },
+        ]}
+      >
         <Text style={styles.plannerText}>Workout Planner</Text>
       </View>
 
-      {/* Tutorials Button */}
-      <View style={styles.tutorialsButton}>
+      <View
+        style={[
+          styles.tutorialsButton,
+          { top: scaledTop(1500), height: scaledHeight(238) },
+        ]}
+      >
         <Text style={styles.tutorialsText}>Tutorials</Text>
       </View>
 
-      {/* Store Button */}
-      <View style={styles.storeButton}>
+      <View
+        style={[
+          styles.storeButton,
+          { top: scaledTop(1800), height: scaledHeight(238) },
+        ]}
+      >
         <Text style={styles.storeText}>GOAT Store</Text>
       </View>
     </View>
@@ -38,42 +80,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   placeholderLogo: {
-    width: 200,
-    height: 300,
+    width: scaledImageWidth,
+    height: scaledImageHeight,
     resizeMode: "contain",
+    marginTop: 70,
   },
   trackerButton: {
     position: "absolute",
     width: "94%",
-    height: 238,
-    top: 900,
     alignSelf: "center",
     backgroundColor: "#FFFFFF",
     borderColor: "#242833",
     borderWidth: 8,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
+
   trackerText: {
     fontFamily: "Courier Prime",
     fontWeight: "700",
-    fontSize: 110,
-    lineHeight: 124,
+    fontSize: scaledSize(110),
+    lineHeight: scaledSize(124),
     textAlign: "center",
+    marginTop: 20,
     color: "#242833",
   },
   plannerButton: {
     position: "absolute",
     width: "94%",
-    height: 238,
-    top: 1200,
+    height: scaledHeight(238),
+    top: scaledTop(1300),
     alignSelf: "center",
     backgroundColor: "#FFFFFF",
     borderColor: "#242833",
     borderWidth: 8,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -81,21 +124,22 @@ const styles = StyleSheet.create({
   plannerText: {
     fontFamily: "Courier Prime",
     fontWeight: "700",
-    fontSize: 110,
-    lineHeight: 124,
+    fontSize: scaledSize(110),
+    lineHeight: scaledSize(124),
     textAlign: "center",
+    marginTop: 20,
     color: "#242833",
   },
   tutorialsButton: {
     position: "absolute",
     width: "94%",
-    height: 238,
-    top: 1500,
+    height: scaledHeight(238),
+    top: scaledTop(1500),
     alignSelf: "center",
     backgroundColor: "#FFFFFF",
     borderColor: "#242833",
     borderWidth: 8,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -103,21 +147,22 @@ const styles = StyleSheet.create({
   tutorialsText: {
     fontFamily: "Courier Prime",
     fontWeight: "700",
-    fontSize: 110,
-    lineHeight: 124,
+    fontSize: scaledSize(110),
+    lineHeight: scaledSize(124),
     textAlign: "center",
+    marginTop: 20,
     color: "#242833",
   },
   storeButton: {
     position: "absolute",
     width: "94%",
-    height: 238,
-    top: 1800,
+    height: scaledHeight(238),
+    top: scaledTop(1800),
     alignSelf: "center",
     backgroundColor: "#FFFFFF",
     borderColor: "#242833",
     borderWidth: 8,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -125,9 +170,10 @@ const styles = StyleSheet.create({
   storeText: {
     fontFamily: "Courier Prime",
     fontWeight: "700",
-    fontSize: 110,
-    lineHeight: 124,
+    fontSize: scaledSize(110),
+    lineHeight: scaledSize(124),
     textAlign: "center",
+    marginTop: 20,
     color: "#242833",
   },
 });
