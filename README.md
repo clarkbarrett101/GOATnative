@@ -3,6 +3,8 @@
 [Clark's First Time Using React Native Video](https://drive.google.com/file/d/1ks_ebAavAolvvRGjqN-D4ic4aqsD0G41/view?usp=sharing)
 *Watch the last 15 Minutes or so to see how to copy UI from Figma to React Native*
 
+[React Native Development Part II: Electric Boogaloo](https://drive.google.com/file/d/1ewoMFZd-0QgNRsEzhE49wicHEjfwSgNo/view?usp=sharing)
+
 ### How to Replicate Figma Design in React Native
 - Create a React Component and .jsx file
 - Right Click the Layer on figma containing all the sublayers you need and select "Copy as CSS (all Layers)"
