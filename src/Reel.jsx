@@ -156,7 +156,33 @@ function Reel(props) {
     setDoty(graphHeight - (diff * graphHeight) / 6);
   }
 
-  return <></>;
+  return (
+    <>
+      <Svg
+        height={graphHeight}
+        width={graphWidth}
+        style={{ top: 400, left: 150 }}
+      >
+        <Polyline points={data} fill="none" stroke="black" strokeWidth="12" />
+        <Line x1={dotx} y1={0} x2={dotx} y2={graphHeight} stroke="black" />
+        <Circle cx={dotx} cy={status} r="12" fill="white" />
+        <Line
+          x1={dotx}
+          y1={status}
+          x2={dotx}
+          y2={doty}
+          stroke="red"
+          strokeWidth={5}
+        />
+        <Circle
+          cx={dotx}
+          cy={doty}
+          r="10"
+          fill={status > 0.5 ? "red" : "green"}
+        />
+      </Svg>
+    </>
+  );
 }
 
 export { Reel };

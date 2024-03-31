@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
 // Get device screen dimensions
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -24,7 +31,11 @@ const imageScale = Math.min(widthScale, heightScale);
 const scaledImageWidth = originalImageWidth * imageScale;
 const scaledImageHeight = originalImageHeight * imageScale;
 
-const MainMenu = () => {
+const MainMenu = (props) => {
+  function loadTracker() {
+    props.setCurrentPage("tracker");
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -38,7 +49,9 @@ const MainMenu = () => {
           { top: scaledTop(900), height: scaledHeight(238) },
         ]}
       >
-        <Text style={styles.trackerText}>Workout Tracker</Text>
+        <TouchableOpacity onPress={loadTracker}>
+          <Text style={styles.trackerText}>Workout Tracker</Text>
+        </TouchableOpacity>
       </View>
 
       <View

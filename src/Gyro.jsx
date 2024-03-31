@@ -1,3 +1,5 @@
+import { Accelerometer } from "expo-sensors";
+
 class Gyro {
   constructor() {
     if (!Gyro.instance) {

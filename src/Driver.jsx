@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
-import { Reel, Calibration, MainMenu, Tracker, Settings } from "./index";
+import {
+  Reel,
+  Calibration,
+  MainMenu,
+  Tracker,
+  Settings,
+  OldGoat,
+  RecordButton,
+  BackDrop,
+  CompareButton,
+} from "./index";
 
 function Driver() {
   const pages = ["mainMenu", "calibration", "tracker", "settings"];
-  const [currentPage, setCurrentPage] = useState(pages[3]);
+  const [currentPage, setCurrentPage] = useState(pages[0]);
   let modes = ["noRecording", "idle", "recording", "comparing"];
   const [appMode, setAppMode] = useState(modes[0]);
   const [score, setScore] = useState(100);
@@ -30,7 +40,13 @@ function Driver() {
       case "calibration":
         return <Calibration setCurrentPage={setCurrentPage} />;
       case "tracker":
-        return <Tracker />;
+        return (
+          <>
+            <RecordButton appMode={appMode} setAppMode={setAppMode} />
+            <CompareButton appMode={appMode} setAppMode={setAppMode} />
+            <BackDrop />
+          </>
+        );
       case "settings":
         return (
           <Settings

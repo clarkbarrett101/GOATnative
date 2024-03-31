@@ -1,6 +1,5 @@
-
-import { Driver } from "./src/index";
+import { OldGoat } from "./src/index";
 
 export default function App() {
-  return <Driver />;
+  return <OldGoat />;
 }

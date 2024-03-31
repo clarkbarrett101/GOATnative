@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": ["react-native-ble-plx"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -29,6 +30,12 @@
       "eas": {
         "projectId": "9a88a7be-83c0-4587-995e-2240ffd2b7b8"
       }
-    }
+    },
+    "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    }}
   }
 }
