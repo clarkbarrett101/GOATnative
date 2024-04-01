@@ -2,26 +2,31 @@
   "expo": {
     "name": "GOATnative",
     "slug": "GOATnative",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "plugins": ["react-native-ble-plx"],
+    "plugins": [
+      "react-native-ble-plx"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.clarkbarrett101.goat"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.clarkbarrett101.GOATnative"
+      "package": "com.clarkbarrett101.goat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,10 +37,11 @@
       }
     },
     "build": {
-    "preview": {
-      "android": {
-        "buildType": "apk"
+      "preview": {
+        "android": {
+          "buildType": "apk"
+        }
       }
-    }}
+    }
   }
 }

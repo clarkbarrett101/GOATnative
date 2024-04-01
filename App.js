@@ -1,5 +1,5 @@
-import { OldGoat } from "./src/index";
+import { BLErevenge } from "./src/BLErevenge";
 
 export default function App() {
-  return <OldGoat />;
+  return <BLErevenge />;
 }
