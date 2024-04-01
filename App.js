@@ -1,6 +1,8 @@
 
-import { Driver } from "./src/index";
+import { Calibration, Driver, MainMenu, Score, Tracker } from "./src/index";
 
 export default function App() {
-  return <Driver />;
+  return <Tracker/>;
+
+  
 }
