@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
 // Get device screen dimensions
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -23,22 +30,26 @@ const originalImageHeight = 749; // Replace with your image's actual height
 const imageScale = Math.min(widthScale, heightScale);
 const scaledImageWidth = originalImageWidth * imageScale;
 const scaledImageHeight = originalImageHeight * imageScale;
+const MainMenu = (props) => {
+  const trackerButton = () => {
+    props.setCurrentPage("tracker");
+  };
 
-const MainMenu = () => {
   return (
     <View style={styles.container}>
       <Image
         source={require("../assets/goat_logo.png")}
         style={styles.placeholderLogo}
       />
-
       <View
         style={[
           styles.trackerButton,
           { top: scaledTop(900), height: scaledHeight(238) },
         ]}
       >
-        <Text style={styles.trackerText}>Workout Tracker</Text>
+        <TouchableOpacity onPress={trackerButton}>
+          <Text style={styles.trackerText}>Regular Tracker</Text>
+        </TouchableOpacity>
       </View>
 
       <View
@@ -47,7 +58,7 @@ const MainMenu = () => {
           { top: scaledTop(1200), height: scaledHeight(238) },
         ]}
       >
-        <Text style={styles.plannerText}>Workout Planner</Text>
+        <Text style={styles.plannerText}>GOAT Tracker</Text>
       </View>
 
       <View
@@ -56,7 +67,7 @@ const MainMenu = () => {
           { top: scaledTop(1500), height: scaledHeight(238) },
         ]}
       >
-        <Text style={styles.tutorialsText}>Tutorials</Text>
+        <Text style={styles.tutorialsText}>fitCheck Tracker</Text>
       </View>
 
       <View

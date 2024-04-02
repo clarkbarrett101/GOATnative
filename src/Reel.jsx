@@ -10,11 +10,12 @@ function Reel(props) {
   const [doty, setDoty] = useState(0);
   const letters = ["S", "A", "B", "C", "D", "F"];
   const [status, setStatus] = useState(0);
-  const graphWidth = 500;
-  const graphHeight = 200;
+  const graphWidth = 300;
+  const graphHeight = 150;
   const minScore = 0;
   const maxScore = 100;
   const gyro = new Gyro();
+  gyro.setInterval(1000 / props.fps);
 
   useEffect(() => {
     update();
@@ -37,6 +38,7 @@ function Reel(props) {
     }
   };
   function recording() {
+    props.setRound(props.currentFrame);
     if (addFrame(gyro.getFrame())) {
       console.log("Repeat detected");
       props.setAppMode("comparing");
@@ -156,14 +158,17 @@ function Reel(props) {
     setDoty(graphHeight - (diff * graphHeight) / 6);
   }
 
-  return <></>;
-}
-
-export { Reel };
-/*<Svg
+  return (
+    <>
+      <Svg
         height={graphHeight}
         width={graphWidth}
-        style={{ top: 400, left: 150 }}
+        style={{
+          top: 250,
+          alignContent: "center",
+          zIndex: 3,
+          position: "absolute",
+        }}
       >
         <Polyline points={data} fill="none" stroke="black" strokeWidth="12" />
         <Line x1={dotx} y1={0} x2={dotx} y2={graphHeight} stroke="black" />
@@ -183,4 +188,11 @@ export { Reel };
           fill={status > 0.5 ? "red" : "green"}
         />
       </Svg>
-*/
+    </>
+  );
+}
+
+export { Reel };
+/*
+
+ */

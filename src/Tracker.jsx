@@ -1,5 +1,12 @@
-import React from "react";
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import { React, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
 // Get device screen dimensions
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -140,7 +147,7 @@ const styles = StyleSheet.create({
   deviceDisplay: {
     position: "absolute",
     width: scaledSize(1237),
-    height: scaledHeight(375),
+    height: scaledHeight(575),
     left: scaledLeft(21),
     top: scaledTop(534),
     backgroundColor: "#F8F7FF",
@@ -274,7 +281,35 @@ const styles = StyleSheet.create({
     color: "#242833",
   },
 });
-function Tracker() {
+function Tracker(props) {
+  function startTracking() {
+    if (props.appMode !== "recording" || props.appMode !== "comparing") {
+      props.setAppMode("recording");
+    } else {
+      props.setAppMode("idle");
+    }
+  }
+  function trackingText() {
+    if (props.appMode === "recording") {
+      return "Recording...";
+    } else if (props.appMode === "comparing") {
+      return "Tracking...";
+    } else {
+      return "Start Tracking";
+    }
+  }
+  useEffect(() => {
+    trackingText();
+  }, [props.appMode]);
+
+  function showScore() {}
+  useEffect(() => {
+    round();
+  }, [props.round]);
+  function round() {
+    return props.round;
+  }
+  function rep() {}
   return (
     <View style={styles.tracker}>
       <View style={styles.settingsButton}>
@@ -294,16 +329,12 @@ function Tracker() {
       </View>
 
       <View style={styles.trackingButton}>
-        <Text style={styles.trackingText}>Start Tracking</Text>
+        <TouchableOpacity onPress={startTracking}>
+          <Text style={styles.trackingText}>{trackingText()}</Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.addDeviceButton}>
-        <Text style={styles.addDeviceText}>Add Device Text</Text>
-      </View>
-
-      <View style={styles.deviceDisplay}>
-        <View style={styles.customDeviceIcon}></View>
-      </View>
+      <View style={styles.deviceDisplay}></View>
 
       <View style={styles.gradeBubble}>
         <Text style={styles.gradeLabel}>Grade </Text>
@@ -317,7 +348,7 @@ function Tracker() {
 
       <View style={styles.roundBubble}>
         <Text style={styles.roundLabel}>Round</Text>
-        <Text style={styles.roundDisplay}>IV</Text>
+        <Text style={styles.roundDisplay}>{round()}</Text>
       </View>
 
       <View style={styles.exerciseBubble}>
