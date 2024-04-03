@@ -8,7 +8,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "expo-font";
 
+const [fontsLoaded, fontError] = useFonts({
+  Montserrat: require("./assets/Montserrat-VariableFont_wght.ttf"),
+});
 // Get device screen dimensions
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(103), // Adjusted for consistency
     marginTop: 20,
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "400",
     fontSize: scaledSize(96),
     lineHeight: scaledSize(108),
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(103),
     marginTop: 20,
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "400",
     fontSize: scaledSize(96),
     lineHeight: scaledSize(108),
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(23),
     marginTop: 10,
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: 20,
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   gradeDisplay: {
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "800",
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
@@ -214,7 +218,7 @@ const styles = StyleSheet.create({
     borderRadius: 192,
   },
   repLabel: {
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "400",
     fontSize: scaledSize(64),
     lineHeight: scaledSize(72),
@@ -223,7 +227,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   repDisplay: {
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "800",
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
@@ -247,7 +251,7 @@ const styles = StyleSheet.create({
     borderRadius: 192,
   },
   roundLabel: {
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "400",
     fontSize: scaledSize(64),
     lineHeight: scaledSize(72),
@@ -256,7 +260,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   roundDisplay: {
-    fontFamily: "Courier Prime",
+    fontFamily: "Montserrat",
     fontWeight: "800",
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),

@@ -2,7 +2,7 @@
   "expo": {
     "name": "GOATnative",
     "slug": "GOATnative",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -32,6 +32,13 @@
       "eas": {
         "projectId": "9a88a7be-83c0-4587-995e-2240ffd2b7b8"
       }
+    },
+      "plugins": [
+        [
+          "expo-font",
+          {
+      "fonts": ["./assets/Montserrat-VariableFont_wght.ttf","./assets/Oxanium-VariableFont_wght.ttf"]
     }
+    ]]
   }
 }

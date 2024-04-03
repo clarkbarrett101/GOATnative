@@ -19,7 +19,7 @@ function Driver() {
   const [currentFrame, setCurrentFrame] = useState(0);
   const [tolerance, setTolerance] = useState(0.5);
   const [loopThreshold, setLoopThreshold] = useState(0.3);
-  const [gracePeriod, setGracePeriod] = useState(4);
+  const [gracePeriod, setGracePeriod] = useState(3);
   const [fps, setFps] = useState(10);
   const [round, setRound] = useState(1);
   const [rep, setRep] = useState(1);
