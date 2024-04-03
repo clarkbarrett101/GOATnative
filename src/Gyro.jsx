@@ -1,12 +1,12 @@
-import { Gyroscope } from "expo-sensors";
+import { Accelerometer } from "expo-sensors";
 class Gyro {
   constructor() {
     if (!Gyro.instance) {
       this.currentFrame = [0, 0, 0];
       this.setInterval = (interval) => {
-        Gyroscope.setUpdateInterval(interval);
+        Accelerometer.setUpdateInterval(interval);
       };
-      Gyroscope.addListener((gyroscopeData) => {
+      Accelerometer.addListener((gyroscopeData) => {
         this.currentFrame = [gyroscopeData.x, gyroscopeData.y, gyroscopeData.z];
       });
       this.getFrame = () => {

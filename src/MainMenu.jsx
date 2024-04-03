@@ -33,6 +33,11 @@ const scaledImageHeight = originalImageHeight * imageScale;
 const MainMenu = (props) => {
   const trackerButton = () => {
     props.setCurrentPage("tracker");
+    props.setStyleType("regular");
+  };
+  const fitCheckButton = () => {
+    props.setCurrentPage("tracker");
+    props.setStyleType("fitCheck");
   };
 
   return (
@@ -67,7 +72,9 @@ const MainMenu = (props) => {
           { top: scaledTop(1500), height: scaledHeight(238) },
         ]}
       >
-        <Text style={styles.tutorialsText}>fitCheck Tracker</Text>
+        <TouchableOpacity onPress={fitCheckButton}>
+          <Text style={styles.tutorialsText}>fitCheck Tracker</Text>
+        </TouchableOpacity>
       </View>
 
       <View

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 import { Gyro } from "./Gyro";
 import { Svg, Polyline, Circle, Line } from "react-native-svg";
 
@@ -10,8 +10,9 @@ function Reel(props) {
   const [doty, setDoty] = useState(0);
   const letters = ["S", "A", "B", "C", "D", "F"];
   const [status, setStatus] = useState(0);
-  const graphWidth = 300;
-  const graphHeight = 150;
+  const graphWidth = Dimensions.get("window").width - 100;
+  const graphHeight = Dimensions.get("window").height / 5;
+  const top = Dimensions.get("window").height / 4;
   const minScore = 0;
   const maxScore = 100;
   const gyro = new Gyro();
@@ -23,8 +24,6 @@ function Reel(props) {
 
   const update = () => {
     switch (props.appMode) {
-      case "noRecording":
-        break;
       case "idle":
         break;
       case "recording":
@@ -50,6 +49,7 @@ function Reel(props) {
     compareGyroFrame(props.currentFrame);
     if (props.currentFrame >= frames.length - 1) {
       console.log("Comparison complete");
+      props.setRep(props.rep + 1);
       props.setCurrentFrame(0);
     }
   }
@@ -73,7 +73,7 @@ function Reel(props) {
       diff += Math.abs(gyroFrame[i] - firstFrame[i]);
     }
 
-    if (diff <= props.checkSensitivity) {
+    if (diff <= props.loopThreshold) {
       isRepeat = true;
     }
 
@@ -164,8 +164,8 @@ function Reel(props) {
         height={graphHeight}
         width={graphWidth}
         style={{
-          top: 250,
-          alignContent: "center",
+          top: top,
+          left: 75,
           zIndex: 3,
           position: "absolute",
         }}

@@ -11,6 +11,7 @@ import { Tracker } from "./Tracker";
 import { Calibration } from "./Calibration";
 import { Settings } from "./Settings";
 import { Meter } from "./Meter";
+import { FitCheckTracker } from "./FitCheckTracker";
 export {
   Meter,
   Settings,
@@ -25,4 +26,5 @@ export {
   MainMenu,
   Tracker,
   Calibration,
+  FitCheckTracker,
 };
