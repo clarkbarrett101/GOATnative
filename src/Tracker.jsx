@@ -527,26 +527,6 @@ const fitCheck = StyleSheet.create({
 /* Rectangle 9 */
 
 function Tracker(props) {
-  function fitCheckGradient1() {
-    if (props.styleType === "fitCheck") {
-      return (
-        <LinearGradient
-          style={styles.tracker}
-          colors={["#9E00FF", "#FF7F56"]}
-        />
-      );
-    } else {
-      return;
-    }
-  }
-  function fitCheckGradient2() {
-    return (
-      <LinearGradient
-        style={StyleSheet.absoluteFill}
-        colors={["#FF9AB6", "#CEAFFF"]}
-      />
-    );
-  }
   const currentStyle = () => {
     switch (props.styleType) {
       case "regular":
@@ -568,6 +548,8 @@ function Tracker(props) {
   function startTracking() {
     if (props.appMode === "idle") {
       props.setAppMode("recording");
+      props.setCurrentFrame(0);
+      props.setFrames([]);
     } else {
       props.setAppMode("idle");
     }
@@ -602,7 +584,6 @@ function Tracker(props) {
   }
   return (
     <View style={styles.tracker}>
-      {fitCheckGradient1()}
       <View style={styles.settingsButton}>
         {/* Setting Button */}
         <Image
@@ -620,11 +601,11 @@ function Tracker(props) {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.trackingButton}>
-        <TouchableOpacity onPress={startTracking}>
+      <TouchableOpacity onPress={startTracking}>
+        <View style={styles.trackingButton}>
           <Text style={styles.trackingText}>{trackingText()}</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.deviceDisplay}></View>
 

@@ -4,7 +4,6 @@ import { Gyro } from "./Gyro";
 import { Svg, Polyline, Circle, Line } from "react-native-svg";
 
 function Reel(props) {
-  const [frames, setFrames] = useState([]);
   const [data, setData] = useState("0,0 0,0");
   const [dotx, setDotx] = useState(0);
   const [doty, setDoty] = useState(0);
@@ -47,7 +46,7 @@ function Reel(props) {
   }
   function comparing() {
     compareGyroFrame(props.currentFrame);
-    if (props.currentFrame >= frames.length - 1) {
+    if (props.currentFrame >= props.frames.length - 1) {
       console.log("Comparison complete");
       props.setRep(props.rep + 1);
       props.setCurrentFrame(0);
@@ -55,18 +54,18 @@ function Reel(props) {
   }
 
   const addFrame = (frame) => {
-    setFrames([...frames, frame]);
+    props.setFrames([...props.frames, frame]);
     const repeat = checkForRepeat(frame);
     updateDot();
     return repeat;
   };
 
   const checkForRepeat = (gyroFrame) => {
-    if (frames.length < props.gracePeriod * props.fps) {
+    if (props.frames.length < props.gracePeriod * props.fps) {
       return false;
     }
     let isRepeat = false;
-    let firstFrame = frames[0];
+    let firstFrame = props.frames[0];
     let diff = 0;
 
     for (let i = 0; i < 3; i++) {
@@ -92,7 +91,7 @@ function Reel(props) {
 
   const calculateDifference = (index) => {
     let gyroFrame = gyro.getFrame();
-    let frame = frames[index];
+    let frame = props.frames[index];
     let magnitude =
       (frame[0] - gyroFrame[0]) ** 2 +
       (frame[1] - gyroFrame[1]) ** 2 +
@@ -119,11 +118,11 @@ function Reel(props) {
   };
   function calcGraphData() {
     let graphString = "";
-    const widthMod = graphWidth / frames.length;
+    const widthMod = graphWidth / props.frames.length;
 
-    const firstFrame = frames[0];
-    for (let i = 0; i < frames.length; i++) {
-      const frame = frames[i];
+    const firstFrame = props.frames[0];
+    for (let i = 0; i < props.frames.length; i++) {
+      const frame = props.frames[i];
       let diff = 0;
       for (let i = 0; i < 3; i++) {
         diff += Math.abs(frame[i] - firstFrame[i]);
@@ -138,25 +137,31 @@ function Reel(props) {
   }
   function updateGraphDot() {
     let diff = 0;
-    const frame = frames[props.currentFrame];
-    const firstFrame = frames[0];
+    const frame = props.frames[props.currentFrame];
+    const firstFrame = props.frames[0];
     for (let i = 0; i < 3; i++) {
       diff += Math.abs(frame[i] - firstFrame[i]);
     }
     setStatus(graphHeight - (diff * graphHeight) / 6);
   }
   function updateDot() {
-    if (frames.length === 0) return;
+    if (props.frames.length === 0) return;
     const frame = gyro.getFrame();
-    const firstFrame = frames[0];
+    const firstFrame = props.frames[0];
     let diff = 0;
     for (let i = 0; i < 3; i++) {
       diff += Math.abs(frame[i] - firstFrame[i]);
     }
-    const widthMod = graphWidth / frames.length;
+    const widthMod = graphWidth / props.frames.length;
     setDotx(widthMod * props.currentFrame);
     setDoty(graphHeight - (diff * graphHeight) / 6);
   }
+  function getLineColor() {
+    return props.styleType === "fitCheck" ? "white" : "black";
+  }
+  useEffect(() => {
+    getLineColor();
+  }, [props.styleType]);
 
   return (
     <>
@@ -165,13 +170,24 @@ function Reel(props) {
         width={graphWidth}
         style={{
           top: top,
-          left: 75,
+          left: 50,
           zIndex: 3,
           position: "absolute",
         }}
       >
-        <Polyline points={data} fill="none" stroke="black" strokeWidth="12" />
-        <Line x1={dotx} y1={0} x2={dotx} y2={graphHeight} stroke="black" />
+        <Polyline
+          points={data}
+          fill="none"
+          stroke={getLineColor()}
+          strokeWidth="12"
+        />
+        <Line
+          x1={dotx}
+          y1={0}
+          x2={dotx}
+          y2={graphHeight}
+          stroke={getLineColor()}
+        />
         <Circle cx={dotx} cy={status} r="12" fill="white" />
         <Line
           x1={dotx}

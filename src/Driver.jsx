@@ -9,6 +9,7 @@ import {
 } from "./index";
 
 function Driver() {
+  const [frames, setFrames] = useState([]);
   const pages = ["mainMenu", "calibration", "tracker", "settings"];
   const [currentPage, setCurrentPage] = useState(pages[0]);
   const styleTypes = ["regular", "GOAT", "fitCheck"];
@@ -19,8 +20,8 @@ function Driver() {
   const [currentFrame, setCurrentFrame] = useState(0);
   const [tolerance, setTolerance] = useState(0.5);
   const [loopThreshold, setLoopThreshold] = useState(0.3);
-  const [gracePeriod, setGracePeriod] = useState(3);
-  const [fps, setFps] = useState(10);
+  const [gracePeriod, setGracePeriod] = useState(2);
+  const [fps, setFps] = useState(20);
   const [round, setRound] = useState(1);
   const [rep, setRep] = useState(1);
 
@@ -50,6 +51,9 @@ function Driver() {
           return (
             <>
               <FitCheckTracker
+                setCurrentFrame={setCurrentFrame}
+                setFrames={setFrames}
+                frames={frames}
                 styleType={styleType}
                 appMode={appMode}
                 setAppMode={setAppMode}
@@ -62,6 +66,8 @@ function Driver() {
                 setCurrentPage={setCurrentPage}
               />
               <Reel
+                setFrames={setFrames}
+                frames={frames}
                 currentFrame={currentFrame}
                 setCurrentFrame={setCurrentFrame}
                 appMode={appMode}
@@ -76,6 +82,7 @@ function Driver() {
                 rep={rep}
                 setRep={setRep}
                 setRound={setRound}
+                styleType={styleType}
               />
             </>
           );
@@ -83,6 +90,9 @@ function Driver() {
           return (
             <>
               <Tracker
+                setCurrentFrame={setCurrentFrame}
+                setFrames={setFrames}
+                frames={frames}
                 styleType={styleType}
                 appMode={appMode}
                 setAppMode={setAppMode}
@@ -95,6 +105,9 @@ function Driver() {
                 setCurrentPage={setCurrentPage}
               />
               <Reel
+                setFrames={setFrames}
+                styleType={styleType}
+                frames={frames}
                 currentFrame={currentFrame}
                 setCurrentFrame={setCurrentFrame}
                 appMode={appMode}
