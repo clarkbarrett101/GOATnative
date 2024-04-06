@@ -115,8 +115,8 @@ function GoatTracker(props) {
         source={require("../assets/H_plaque.png")}
       />
 
-      <TouchableOpacity style={styles.track_button} onPress={startTracking}>
-        {trackingText()}
+      <TouchableOpacity style={styles.track_button} onPressIn={startTracking}>
+        <>{trackingText()}</>
       </TouchableOpacity>
       <TouchableOpacity style={styles.back_button} onPress={back_button}>
         <Image

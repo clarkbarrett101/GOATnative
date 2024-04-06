@@ -112,8 +112,8 @@ function FitCheckTracker(props) {
           </TouchableOpacity>
         </LinearGradient>
 
-        <TouchableOpacity onPress={startTracking}>
-          {trackingText()}
+        <TouchableOpacity onPressIn={startTracking}>
+          <>{trackingText()}</>
         </TouchableOpacity>
 
         <LinearGradient
@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
   },
   ///////////////////////// WHAT IS A KILOMETER!!!!!!!!!!!!???
   trackingButton: {
-    position: "absolute",
     width: "94%",
     resizeMode: "contain",
     left: scaledLeft(45),
