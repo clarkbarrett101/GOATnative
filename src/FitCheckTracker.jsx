@@ -203,13 +203,15 @@ const styles = StyleSheet.create({
     height: scaledImageHeight,
     resizeMode: "contain",
     marginTop: 10,
+    zIndex: 5,
   },
   ///////////////////////// WHAT IS A KILOMETER!!!!!!!!!!!!???
   trackingButton: {
     width: "94%",
+    height: scaledHeight(221),
     resizeMode: "contain",
     left: scaledLeft(45),
-    top: scaledTop(1500),
+    top: scaledTop(1600),
   },
   trackingText: {
     position: "absolute",

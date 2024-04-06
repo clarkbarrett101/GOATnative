@@ -337,7 +337,7 @@ function Tracker(props) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={startTracking}>
+      <TouchableOpacity onPressIn={startTracking}>
         <View style={styles.trackingButton}></View>
         <Text style={styles.trackingText}>{trackingText()}</Text>
       </TouchableOpacity>

@@ -179,7 +179,7 @@ function Reel(props) {
           points={data}
           fill="none"
           stroke={getLineColor()}
-          strokeWidth="12"
+          strokeWidth="4"
         />
         <Line
           x1={dotx}

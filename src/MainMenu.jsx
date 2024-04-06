@@ -33,12 +33,15 @@ const scaledImageHeight = originalImageHeight * imageScale;
 const MainMenu = (props) => {
   const trackerButton = () => {
     props.setCurrentPage("tracker");
+    props.setStyleType("regular");
   };
   const fitCheckButton = () => {
     props.setCurrentPage("fitCheck");
+    props.setStyleType("fitCheck");
   };
   const goatButton = () => {
     props.setCurrentPage("GOAT");
+    props.setStyleType("GOAT");
   };
 
   return (

@@ -261,16 +261,17 @@ const styles = StyleSheet.create({
   graph: {
     position: "absolute",
     width: w_big_plaque * 1.1,
-    height: h_big_plaque * 1.3,
+    height: h_big_plaque * 1.5,
     resizeMode: "stretch",
     left: scaledLeft(10),
     top: scaledTop(450),
   },
   add_label: {
     position: "absolute",
-    width: w_h_plaque * 0.8,
-    height: h_h_plaque * 0.8,
-    left: scaledLeft(191),
+    width: w_h_plaque,
+    height: h_h_plaque * 1.2,
+    resizeMode: "contain",
+    left: scaledLeft(50),
     top: scaledTop(1100),
   },
   track_label: {
