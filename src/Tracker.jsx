@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: scaledSize(896), // Assuming a similar width as trackingText for consistency
     height: scaledHeight(100),
     left: scaledLeft(103), // Adjusted for consistency
-    marginTop: 20,
+    top: scaledTop(1650),
     fontFamily: "Courier Prime",
     fontWeight: "400",
     fontSize: scaledSize(96),
@@ -338,9 +338,8 @@ function Tracker(props) {
       </View>
 
       <TouchableOpacity onPress={startTracking}>
-        <View style={styles.trackingButton}>
-          <Text style={styles.trackingText}>{trackingText()}</Text>
-        </View>
+        <View style={styles.trackingButton}></View>
+        <Text style={styles.trackingText}>{trackingText()}</Text>
       </TouchableOpacity>
 
       <View style={styles.deviceDisplay}></View>
@@ -360,10 +359,6 @@ function Tracker(props) {
       <View style={styles.roundBubble}>
         <Text style={styles.roundLabel}>Time</Text>
         <Text style={styles.roundDisplay}>{round()}</Text>
-      </View>
-
-      <View style={styles.exerciseBubble}>
-        <Text style={styles.exerciseLabel}>Workout Tracker</Text>
       </View>
     </View>
   );

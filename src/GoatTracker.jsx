@@ -22,8 +22,8 @@ const scaledLeft = (left) => Math.ceil(left * widthScale);
 const imageScale = Math.min(widthScale, heightScale);
 const h_v_plaque = 448 * imageScale;
 const w_v_plaque = 375 * imageScale;
-const w_h_plaque = 1131 * imageScale;
-const h_h_plaque = 335 * imageScale;
+const w_h_plaque = 1226 * imageScale;
+const h_h_plaque = 243 * imageScale;
 const w_big_plaque = 1131 * imageScale;
 const h_big_plaque = 539 * imageScale;
 const h_back_plaque = 267 * imageScale;
@@ -46,11 +46,26 @@ function GoatTracker(props) {
   }
   function trackingText() {
     if (props.appMode === "recording") {
-      return "Recording...";
+      return (
+        <Image
+          source={require("../assets/gt record.png")}
+          style={styles.track_label}
+        />
+      );
     } else if (props.appMode === "comparing") {
-      return "Tracking...";
+      return (
+        <Image
+          source={require("../assets/gt compare.png")}
+          style={styles.track_label}
+        />
+      );
     } else {
-      return "Start Tracking";
+      return (
+        <Image
+          source={require("../assets/gt start.png")}
+          style={styles.track_label}
+        />
+      );
     }
   }
   useEffect(() => {
@@ -99,23 +114,9 @@ function GoatTracker(props) {
         style={styles.add_label}
         source={require("../assets/H_plaque.png")}
       />
+
       <TouchableOpacity style={styles.track_button} onPress={startTracking}>
-        <Image
-          style={styles.track_label}
-          source={require("../assets/H_plaque.png")}
-        />
-        <Text
-          style={{
-            position: "absolute",
-            fontSize: scaledHeight(100),
-            textAlign: "center",
-            top: scaledTop(1600),
-            left: scaledLeft(280),
-            color: "#830000",
-          }}
-        >
-          {trackingText()}
-        </Text>
+        {trackingText()}
       </TouchableOpacity>
       <TouchableOpacity style={styles.back_button} onPress={back_button}>
         <Image
@@ -278,6 +279,7 @@ const styles = StyleSheet.create({
     height: h_h_plaque,
     left: scaledLeft(60),
     top: scaledTop(1500),
+    resizeMode: "contain",
   },
   track_button: {
     position: "absolute",

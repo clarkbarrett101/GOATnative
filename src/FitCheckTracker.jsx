@@ -45,11 +45,26 @@ function FitCheckTracker(props) {
   }
   function trackingText() {
     if (props.appMode === "recording") {
-      return "Recording...";
+      return (
+        <Image
+          source={require("../assets/fc Record.png")}
+          style={styles.trackingButton}
+        />
+      );
     } else if (props.appMode === "comparing") {
-      return "Tracking...";
+      return (
+        <Image
+          source={require("../assets/fc Compare.png")}
+          style={styles.trackingButton}
+        />
+      );
     } else {
-      return "Start Tracking";
+      return (
+        <Image
+          source={require("../assets/fc start.png")}
+          style={styles.trackingButton}
+        />
+      );
     }
   }
   useEffect(() => {
@@ -98,12 +113,7 @@ function FitCheckTracker(props) {
         </LinearGradient>
 
         <TouchableOpacity onPress={startTracking}>
-          <LinearGradient
-            style={styles.trackingButton}
-            colors={["#9E00FF", "#FF7F56"]}
-          >
-            <Text style={styles.trackingText}>{trackingText()}</Text>
-          </LinearGradient>
+          {trackingText()}
         </TouchableOpacity>
 
         <LinearGradient
@@ -161,7 +171,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1935),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -183,7 +193,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1935),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -198,14 +208,9 @@ const styles = StyleSheet.create({
   trackingButton: {
     position: "absolute",
     width: "94%",
-    height: scaledHeight(214),
+    resizeMode: "contain",
     left: scaledLeft(45),
-    top: scaledTop(1600),
-
-    shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
-    shadowOpacity: 0.71,
-    borderRadius: 192,
+    top: scaledTop(1500),
   },
   trackingText: {
     position: "absolute",
@@ -218,7 +223,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFFFFF",
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
   },
 
@@ -231,7 +236,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1200),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -242,7 +247,7 @@ const styles = StyleSheet.create({
     left: scaledLeft(103),
     marginTop: 20,
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
 
     fontSize: scaledSize(96),
@@ -260,7 +265,7 @@ const styles = StyleSheet.create({
     top: scaledTop(534),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -288,7 +293,7 @@ const styles = StyleSheet.create({
     bottom: scaledSize(77),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -299,7 +304,7 @@ const styles = StyleSheet.create({
     left: scaledLeft(23),
     marginTop: 10,
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     fontStyle: "normal",
 
@@ -309,7 +314,7 @@ const styles = StyleSheet.create({
   },
   gradeDisplay: {
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
@@ -327,13 +332,13 @@ const styles = StyleSheet.create({
     top: scaledTop(180),
     bottom: scaledSize(77),
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
   repLabel: {
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
 
     fontSize: scaledSize(64),
@@ -344,7 +349,7 @@ const styles = StyleSheet.create({
   },
   repDisplay: {
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
 
     fontSize: scaledSize(150),
@@ -364,13 +369,13 @@ const styles = StyleSheet.create({
     bottom: scaledSize(77),
 
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
   roundLabel: {
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
 
     fontSize: scaledSize(64),
@@ -381,7 +386,7 @@ const styles = StyleSheet.create({
   },
   roundDisplay: {
     shadowColor: "#000",
-    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOffset: { width: scaledSize(6), height: scaledHeight(9) },
     shadowOpacity: 0.71,
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
