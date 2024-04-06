@@ -6,7 +6,9 @@ import { Calibration } from "./Calibration";
 import { Settings } from "./Settings";
 import { Meter } from "./Meter";
 import { FitCheckTracker } from "./FitCheckTracker";
+import { GoatTracker } from "./GoatTracker";
 export {
+  GoatTracker,
   Meter,
   Settings,
   Gyro,

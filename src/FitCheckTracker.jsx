@@ -8,9 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-//SplashScreen.preventAutoHideAsync();
+
 // Get device screen dimensions
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
@@ -36,18 +34,6 @@ const scaledImageWidth = originalImageWidth * imageScale;
 const scaledImageHeight = originalImageHeight * imageScale;
 
 function FitCheckTracker(props) {
-  const [fontsLoaded, fontError] = useFonts({
-    Montserrat: require("../assets/Montserrat-VariableFont_wght.ttf"),
-  });
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
   function startTracking() {
     if (props.appMode === "idle") {
       props.setAppMode("recording");
@@ -175,7 +161,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1935),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -197,7 +183,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1935),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -217,7 +203,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1600),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -227,12 +213,13 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(103), // Adjusted for consistency
     marginTop: 20,
-    fontFamily: "Montserrat",
-    fontWeight: "400",
     fontSize: scaledSize(96),
     lineHeight: scaledSize(108),
     textAlign: "center",
     color: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
   },
 
   //////////////////////////// ADD DEVICE AHAHAHAHAHAHAHAHAHAHHAAUDYSBGIHPOWFUBDSVJGBFAWUOSHCIUBJKQWAS
@@ -244,7 +231,7 @@ const styles = StyleSheet.create({
     top: scaledTop(1200),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -254,8 +241,10 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(103),
     marginTop: 20,
-    fontFamily: "Montserrat",
-    fontWeight: "400",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
+
     fontSize: scaledSize(96),
     lineHeight: scaledSize(108),
     textAlign: "center",
@@ -271,7 +260,7 @@ const styles = StyleSheet.create({
     top: scaledTop(534),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -299,7 +288,7 @@ const styles = StyleSheet.create({
     bottom: scaledSize(77),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
@@ -309,16 +298,19 @@ const styles = StyleSheet.create({
     height: scaledHeight(100),
     left: scaledLeft(23),
     marginTop: 10,
-    fontFamily: "Montserrat",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
     fontStyle: "normal",
-    fontWeight: "400",
+
     fontSize: scaledSize(64),
     textAlign: "center",
     color: "#FFFFFF",
   },
   gradeDisplay: {
-    fontFamily: "Montserrat",
-    fontWeight: "800",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
     textAlign: "center",
@@ -335,13 +327,15 @@ const styles = StyleSheet.create({
     top: scaledTop(180),
     bottom: scaledSize(77),
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
   repLabel: {
-    fontFamily: "Montserrat",
-    fontWeight: "400",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
+
     fontSize: scaledSize(64),
     lineHeight: scaledSize(72),
     textAlign: "center",
@@ -349,8 +343,10 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   repDisplay: {
-    fontFamily: "Montserrat",
-    fontWeight: "800",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
+
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
     textAlign: "center",
@@ -368,13 +364,15 @@ const styles = StyleSheet.create({
     bottom: scaledSize(77),
 
     shadowColor: "#000",
-    shadowOffset: { width: 14, height: 21 },
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
     shadowOpacity: 0.71,
     borderRadius: 192,
   },
   roundLabel: {
-    fontFamily: "Montserrat",
-    fontWeight: "400",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
+
     fontSize: scaledSize(64),
     lineHeight: scaledSize(72),
     textAlign: "center",
@@ -382,8 +380,9 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   roundDisplay: {
-    fontFamily: "Montserrat",
-    fontWeight: "800",
+    shadowColor: "#000",
+    shadowOffset: { width: scaledSize(14), height: scaledHeight(21) },
+    shadowOpacity: 0.71,
     fontSize: scaledSize(150),
     lineHeight: scaledSize(170),
     textAlign: "center",
