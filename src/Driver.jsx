@@ -5,23 +5,33 @@ import {
   MainMenu,
   Tracker,
   Settings,
-  OldGoat,
-  RecordButton,
-  BackDrop,
-  CompareButton,
+  FitCheckTracker,
+  GoatTracker,
 } from "./index";
 
 function Driver() {
-  const pages = ["mainMenu", "calibration", "tracker", "settings"];
+  const [frames, setFrames] = useState([]);
+  const pages = [
+    "mainMenu",
+    "calibration",
+    "tracker",
+    "settings",
+    "GOAT",
+    "fitCheck",
+  ];
   const [currentPage, setCurrentPage] = useState(pages[0]);
-  let modes = ["noRecording", "idle", "recording", "comparing"];
+  const styleTypes = ["regular"];
+  const [styleType, setStyleType] = useState(styleTypes[0]);
+  let modes = ["idle", "recording", "comparing"];
   const [appMode, setAppMode] = useState(modes[0]);
   const [score, setScore] = useState(100);
   const [currentFrame, setCurrentFrame] = useState(0);
-  const [tolerance, setTolerance] = useState(2);
+  const [tolerance, setTolerance] = useState(0.5);
   const [loopThreshold, setLoopThreshold] = useState(0.3);
-  const [gracePeriod, setGracePeriod] = useState(1);
-  const [fps, setFps] = useState(10);
+  const [gracePeriod, setGracePeriod] = useState(2);
+  const [fps, setFps] = useState(20);
+  const [round, setRound] = useState(1);
+  const [rep, setRep] = useState(1);
 
   function update() {
     if (appMode === "recording" || appMode === "comparing") {
@@ -36,50 +46,154 @@ function Driver() {
   function loadPage() {
     switch (currentPage) {
       case "mainMenu":
-        return <MainMenu setCurrentPage={setCurrentPage} />;
+        return (
+          <MainMenu
+            setCurrentPage={setCurrentPage}
+            setFrames={setFrames}
+            setCurrentFrame={setCurrentFrame}
+            setStyleType={setStyleType}
+          />
+        );
       case "calibration":
         return <Calibration setCurrentPage={setCurrentPage} />;
+      case "fitCheck":
+        return (
+          <>
+            <FitCheckTracker
+              setCurrentFrame={setCurrentFrame}
+              setFrames={setFrames}
+              frames={frames}
+              styleType={styleType}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              round={round}
+              setRound={setRound}
+              rep={rep}
+              setRep={setRep}
+              setCurrentPage={setCurrentPage}
+            />
+            <Reel
+              setFrames={setFrames}
+              frames={frames}
+              currentFrame={currentFrame}
+              setCurrentFrame={setCurrentFrame}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              tolerance={tolerance}
+              loopThreshold={loopThreshold}
+              gracePeriod={gracePeriod}
+              fps={fps}
+              round={round}
+              rep={rep}
+              setRep={setRep}
+              setRound={setRound}
+              styleType={styleType}
+            />
+          </>
+        );
       case "tracker":
         return (
           <>
-            <RecordButton appMode={appMode} setAppMode={setAppMode} />
-            <CompareButton appMode={appMode} setAppMode={setAppMode} />
-            <BackDrop />
+            <Tracker
+              setCurrentFrame={setCurrentFrame}
+              setFrames={setFrames}
+              frames={frames}
+              styleType={styleType}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              round={round}
+              setRound={setRound}
+              rep={rep}
+              setRep={setRep}
+              setCurrentPage={setCurrentPage}
+            />
+            <Reel
+              setFrames={setFrames}
+              styleType={styleType}
+              frames={frames}
+              currentFrame={currentFrame}
+              setCurrentFrame={setCurrentFrame}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              tolerance={tolerance}
+              loopThreshold={loopThreshold}
+              gracePeriod={gracePeriod}
+              fps={fps}
+              round={round}
+              rep={rep}
+              setRep={setRep}
+              setRound={setRound}
+            />
           </>
         );
+
       case "settings":
         return (
           <Settings
+            styleType={styleType}
             tolerance={tolerance}
             setTolerance={setTolerance}
             loopThreshold={loopThreshold}
             setLoopThreshold={setLoopThreshold}
             gracePeriod={gracePeriod}
             setGracePeriod={setGracePeriod}
+            setCurrentPage={setCurrentPage}
           />
         );
+      case "GOAT":
+        return (
+          <>
+            <GoatTracker
+              setCurrentFrame={setCurrentFrame}
+              setFrames={setFrames}
+              frames={frames}
+              styleType={styleType}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              round={round}
+              setRound={setRound}
+              rep={rep}
+              setRep={setRep}
+              setCurrentPage={setCurrentPage}
+            />
+            <Reel
+              setFrames={setFrames}
+              frames={frames}
+              currentFrame={currentFrame}
+              setCurrentFrame={setCurrentFrame}
+              appMode={appMode}
+              setAppMode={setAppMode}
+              score={score}
+              setScore={setScore}
+              tolerance={tolerance}
+              loopThreshold={loopThreshold}
+              gracePeriod={gracePeriod}
+              fps={fps}
+              round={round}
+              rep={rep}
+              setRep={setRep}
+              setRound={setRound}
+              styleType={styleType}
+            />
+          </>
+        );
+
       default:
         return <MainMenu setCurrentPage={setCurrentPage} />;
     }
   }
 
-  return (
-    <>
-      {loadPage()}
-      <Reel
-        currentFrame={currentFrame}
-        setCurrentFrame={setCurrentFrame}
-        appMode={appMode}
-        setAppMode={setAppMode}
-        score={score}
-        setScore={setScore}
-        tolerance={tolerance}
-        loopThreshold={loopThreshold}
-        gracePeriod={gracePeriod}
-        fps={fps}
-      />
-    </>
-  );
+  return <>{loadPage()}</>;
 }
 
 export { Driver };

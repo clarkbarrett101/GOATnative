@@ -1,23 +1,16 @@
 import { Accelerometer } from "expo-sensors";
-
 class Gyro {
   constructor() {
     if (!Gyro.instance) {
-      console.log("Gyro class");
-      this.testMod = 0;
+      this.currentFrame = [0, 0, 0];
+      this.setInterval = (interval) => {
+        Accelerometer.setUpdateInterval(interval);
+      };
+      Accelerometer.addListener((gyroscopeData) => {
+        this.currentFrame = [gyroscopeData.x, gyroscopeData.y, gyroscopeData.z];
+      });
       this.getFrame = () => {
-        this.testMod += 0.05;
-        return [
-          Math.random() / 10 -
-            0.05 +
-            Math.round(Math.sin(this.testMod) * 10) / 10,
-          Math.random() / 10 -
-            0.05 +
-            Math.round(Math.sin(this.testMod) * 10) / 10,
-          Math.random() / 10 -
-            0.05 +
-            Math.round(Math.sin(this.testMod) * 10) / 10,
-        ];
+        return this.currentFrame;
       };
       Gyro.instance = this;
     }

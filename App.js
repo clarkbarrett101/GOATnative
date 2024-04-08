@@ -1,4 +1,6 @@
-import { BLErevenge } from "./src/BLErevenge";
+// App.js
+import React from 'react';
+import { Driver } from './src/Driver';
 
 export default function App() {
   return <BLErevenge />;

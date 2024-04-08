@@ -1,270 +1,365 @@
-import { StyleSheet, View, Text } from "react-native";
+import { React, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { LinearGradient } from "react-native-svg";
+
+// Get device screen dimensions
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+
+// Define desired target resolution
+const targetWidth = 1280;
+const targetHeight = 2228;
+
+// Calculate scale factors
+const widthScale = screenWidth / targetWidth;
+const heightScale = screenHeight / targetHeight;
+
+const scaledSize = (size) => Math.ceil(size * widthScale);
+const scaledHeight = (height) => Math.ceil(height * heightScale);
+const scaledTop = (top) => Math.ceil(top * heightScale);
+const scaledLeft = (left) => Math.ceil(left * widthScale);
+
+const originalImageWidth = 166;
+const originalImageHeight = 160;
+
+// Calculate scaled dimensions for the image
+const imageScale = Math.min(widthScale, heightScale);
+const scaledImageWidth = originalImageWidth * imageScale;
+const scaledImageHeight = originalImageHeight * imageScale;
 const styles = StyleSheet.create({
   tracker: {
     position: "relative",
-    width: 1280,
-    height: 2201,
+    width: "100%",
+    height: "100%",
     backgroundColor: "#C2BFD9",
   },
+
+  /////////////////////////////THE ENGINE :b
   settingsButton: {
     position: "absolute",
-    width: 475,
-    height: 208,
-    left: 693,
-    top: 1935,
+    width: "45%",
+    height: scaledHeight(208),
+    left: scaledLeft(650),
+    top: scaledTop(1935),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 205,
+    borderRadius: scaledSize(205),
   },
   settingIcon: {
-    position: "absolute",
-    width: 214,
-    height: 192,
-    left: 824,
-    top: 1943,
-    // Assuming background images are not supported, use backgroundColor instead
-    backgroundColor: "#F8F7FF", // Replace with your background image logic
-    // backgroundBlendMode: 'screen', // Not supported in React Native
-    // mixBlendMode: 'hard-light', // Not supported in React Native
+    width: scaledImageWidth,
+    height: scaledImageHeight,
+    marginTop: scaledHeight(10),
+    marginLeft: scaledLeft(200),
+    resizeMode: "contain",
   },
+
+  ////////////////////BACK ICON, THE ARROW LEFT
   backButton: {
     position: "absolute",
-    width: 521,
-    height: 208,
-    left: 124,
-    top: 1935,
+    width: "45%",
+    height: scaledHeight(208),
+    left: scaledLeft(30),
+    top: scaledTop(1935),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 205,
+    borderRadius: scaledSize(205),
   },
   backIcon: {
-    position: "absolute",
-    width: 166,
-    height: 160,
-    left: 301,
-    top: 1961,
-    // Assuming background images are not supported, use backgroundColor instead
-    backgroundColor: "#F8F7FF", // Replace with your background image logic
-    // mixBlendMode: 'darken', // Not supported in React Native
+    width: scaledImageWidth,
+    height: scaledImageHeight,
+    resizeMode: "contain",
+    marginTop: scaledHeight(10),
+    marginLeft: scaledLeft(200),
   },
+  ///////////////////////// WHAT IS A KILOMETER!!!!!!!!!!!!???
   trackingButton: {
     position: "absolute",
-    left: "3.67%",
-    right: "2.27%",
-    top: "74.73%",
-    bottom: "15.54%",
+    width: "94%",
+    height: scaledHeight(214),
+    left: scaledLeft(45),
+    top: scaledTop(1600),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 278,
+    borderRadius: scaledSize(192),
   },
   trackingText: {
     position: "absolute",
-    width: 896,
-    height: 100,
-    left: 237,
-    top: 1702,
+    width: scaledSize(896), // Assuming a similar width as trackingText for consistency
+    height: scaledHeight(100),
+    left: scaledLeft(103), // Adjusted for consistency
+    top: scaledTop(1650),
     fontFamily: "Courier Prime",
-    fontStyle: "normal",
     fontWeight: "400",
-    fontSize: 96,
-    lineHeight: 108,
+    fontSize: scaledSize(96),
+    lineHeight: scaledSize(108),
     textAlign: "center",
     color: "#242833",
   },
-  // Add more styles here as needed
+
+  //////////////////////////// ADD DEVICE AHAHAHAHAHAHAHAHAHAHHAAUDYSBGIHPOWFUBDSVJGBFAWUOSHCIUBJKQWAS
   addDeviceButton: {
     position: "absolute",
-    width: 950,
-    height: 221,
-    left: 155,
-    top: 976.17,
+    width: scaledSize(896),
+    height: scaledHeight(180),
+    left: scaledLeft(200),
+    top: scaledTop(1150),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
   },
   addDeviceText: {
     position: "absolute",
-    width: 896,
-    height: 100,
-    left: 203,
-    top: 1036.17,
-    fontFamily: "Courier Prime",
-    fontStyle: "normal",
+    width: scaledSize(896),
+    height: scaledHeight(100),
+    marginTop: scaledHeight(20),
     fontWeight: "400",
-    fontSize: 96,
-    lineHeight: 108,
+    fontSize: scaledSize(80),
+    lineHeight: scaledSize(108),
     textAlign: "center",
     color: "#242833",
   },
+
+  //////////////// DEVICEEE BELOW THE GRAD REP AND  ROUDN
   deviceDisplay: {
     position: "absolute",
-    width: 1237,
-    height: 375,
-    left: 21,
-    top: 534.17,
+    width: scaledSize(1237),
+    height: scaledHeight(575),
+    left: scaledLeft(21),
+    top: scaledTop(534),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 192,
+    borderRadius: scaledSize(192),
   },
   customDeviceIcon: {
     position: "absolute",
-    width: 319,
-    height: 302,
-    left: 53,
-    top: 577.17,
+    width: scaledSize(400),
+    height: scaledHeight(302),
+    left: scaledLeft(5),
+    top: scaledTop(10),
     backgroundColor: "#F8F7FF",
     borderWidth: 7,
     borderColor: "#242833",
     shadowOffset: { width: 4, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 186,
+    borderRadius: scaledSize(1000),
   },
+  ///////////////////////GRADE///////////////////////////////
   gradeBubble: {
     position: "absolute",
-    left: "1.64%",
-    right: "67.27%",
-    top: "8.19%",
-    bottom: "77.35%",
+    width: scaledSize(399),
+    height: scaledHeight(318),
+    left: scaledLeft(40),
+    top: scaledTop(180),
+    bottom: scaledSize(77),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 0, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 278,
+    borderRadius: scaledSize(278),
   },
   gradeLabel: {
     position: "absolute",
-    width: 313,
-    height: 100,
-    left: 59,
-    top: 239.17,
+    width: scaledSize(313),
+    height: scaledHeight(100),
+    left: scaledLeft(23),
+    marginTop: 10,
     fontFamily: "Courier Prime",
     fontStyle: "normal",
     fontWeight: "400",
-    fontSize: 64,
-    lineHeight: 72,
+    fontSize: 20,
     textAlign: "center",
     color: "#242833",
   },
   gradeDisplay: {
-    position: "absolute",
-    width: 226,
-    height: 171,
-    left: 104,
-    top: 314.17,
     fontFamily: "Courier Prime",
-    fontStyle: "normal",
-    fontWeight: "700",
-    fontSize: 128,
-    lineHeight: 144,
+    fontWeight: "800",
+    fontSize: scaledSize(150),
+    lineHeight: scaledSize(170),
     textAlign: "center",
+    marginTop: 45,
     color: "#242833",
   },
+
+  ////////////////////////REP////////////////////////////
   repBubble: {
     position: "absolute",
-    left: "34.38%",
-    right: "34.45%",
-    top: "8.18%",
-    bottom: "77.36%",
+    width: scaledSize(399),
+    height: scaledHeight(318),
+    left: scaledLeft(440),
+    top: scaledTop(180),
+    bottom: scaledSize(77),
     backgroundColor: "#F8F7FF",
     borderWidth: 8,
     borderColor: "#242833",
     shadowOffset: { width: 0, height: 4 },
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOpacity: 1,
-    borderRadius: 278,
+    borderRadius: scaledSize(278),
   },
   repLabel: {
+    fontFamily: "Courier Prime",
+    fontWeight: "400",
+    fontSize: scaledSize(64),
+    lineHeight: scaledSize(72),
+    textAlign: "center",
+    marginTop: 18,
+    color: "#242833",
+  },
+  repDisplay: {
+    fontFamily: "Courier Prime",
+    fontWeight: "800",
+    fontSize: scaledSize(150),
+    lineHeight: scaledSize(170),
+    textAlign: "center",
+    marginTop: 5,
+    color: "#242833",
+  },
+
+  /////////////ROUND////////////////////////////
+  roundBubble: {
     position: "absolute",
-    width: 313,
-    height: 100,
-    left: 480,
-    top: 224.17,
+    width: scaledSize(399),
+    height: scaledHeight(318),
+    left: scaledLeft(840),
+    top: scaledTop(180),
+    bottom: scaledSize(77),
+    backgroundColor: "#F8F7FF",
+    borderWidth: 8,
+    borderColor: "#242833",
+    shadowOffset: { width: 0, height: 4 },
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOpacity: 1,
+    borderRadius: scaledSize(278),
+  },
+  roundLabel: {
+    fontFamily: "Courier Prime",
+    fontWeight: "400",
+    fontSize: scaledSize(64),
+    lineHeight: scaledSize(72),
+    textAlign: "center",
+    marginTop: 18,
+    color: "#242833",
+  },
+  roundDisplay: {
+    fontFamily: "Courier Prime",
+    fontWeight: "800",
+    fontSize: scaledSize(150),
+    lineHeight: scaledSize(170),
+    textAlign: "center",
+    marginTop: 5,
+    color: "#242833",
   },
 });
-function Tracker() {
+
+function Tracker(props) {
+  function startTracking() {
+    if (props.appMode === "idle") {
+      props.setAppMode("recording");
+      props.setCurrentFrame(0);
+      props.setFrames([]);
+    } else {
+      props.setAppMode("idle");
+    }
+  }
+  function trackingText() {
+    if (props.appMode === "recording") {
+      return "Recording...";
+    } else if (props.appMode === "comparing") {
+      return "Tracking...";
+    } else {
+      return "Start Tracking";
+    }
+  }
+  useEffect(() => {
+    trackingText();
+  }, [props.appMode]);
+
+  function showScore() {
+    return Math.round(props.score);
+  }
+  useEffect(() => {
+    showScore();
+  }, [props.score]);
+  useEffect(() => {
+    round();
+  }, [props.round]);
+  function round() {
+    return props.round / 10;
+  }
+  function rep() {
+    return props.rep;
+  }
   return (
     <View style={styles.tracker}>
-      {/* Settings Button */}
       <View style={styles.settingsButton}>
-        {/* Setting Icon */}
-        <View style={styles.settingIcon}></View>
+        <TouchableOpacity onPress={() => props.setCurrentPage("settings")}>
+          <Image
+            source={require("../assets/settings_icon.png")}
+            style={styles.settingIcon}
+          />
+        </TouchableOpacity>
       </View>
 
-      {/* Back Button */}
       <View style={styles.backButton}>
-        {/* Back Icon */}
-        <View style={styles.backIcon}></View>
+        <TouchableOpacity onPress={() => props.setCurrentPage("mainMenu")}>
+          <Image
+            source={require("../assets/back_icon.png")}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
       </View>
 
-      {/* Tracking Button */}
-      <View style={styles.trackingButton}></View>
+      <TouchableOpacity onPressIn={startTracking}>
+        <View style={styles.trackingButton}></View>
+        <Text style={styles.trackingText}>{trackingText()}</Text>
+      </TouchableOpacity>
 
-      {/* Tracking Text */}
-      <Text style={styles.trackingText}>Tracking Text</Text>
-
-      {/* Add Device Button */}
-      <View style={styles.addDeviceButton}>
-        {/* Add Device Text */}
-        <Text style={styles.addDeviceText}>Add Device Text</Text>
-      </View>
-
-      {/* Device Display */}
       <View style={styles.deviceDisplay}></View>
-
-      {/* Custom Device Icon */}
-      <View style={styles.customDeviceIcon}></View>
-
-      {/* Grade Bubble */}
+      <View style={styles.addDeviceButton}>
+        <Text style={styles.addDeviceText}>+ Add Device</Text>
+      </View>
       <View style={styles.gradeBubble}>
-        {/* Grade Label */}
-        <Text style={styles.gradeLabel}>Grade Label</Text>
-        {/* Grade Display */}
-        <Text style={styles.gradeDisplay}>Grade Display</Text>
+        <Text style={styles.gradeLabel}>Grade </Text>
+        <Text style={styles.gradeDisplay}>{showScore()}</Text>
       </View>
 
-      {/* Rep Bubble */}
       <View style={styles.repBubble}>
-        {/* Rep Label */}
-        <Text style={styles.repLabel}>Rep Label</Text>
-        {/* Rep Display */}
-        <Text style={styles.repDisplay}>Rep Display</Text>
+        <Text style={styles.repLabel}>Rep</Text>
+        <Text style={styles.repDisplay}>{rep()}</Text>
       </View>
 
-      {/* Round Bubble */}
       <View style={styles.roundBubble}>
-        {/* Round Label */}
-        <Text style={styles.roundLabel}>Round Label</Text>
-        {/* Round Display */}
-        <Text style={styles.roundDisplay}>Round Display</Text>
-      </View>
-
-      {/* Exercise Bubble */}
-      <View style={styles.exerciseBubble}>
-        {/* Exercise Label */}
-        <Text style={styles.exerciseLabel}>Exercise Label</Text>
+        <Text style={styles.roundLabel}>Time</Text>
+        <Text style={styles.roundDisplay}>{round()}</Text>
       </View>
     </View>
   );

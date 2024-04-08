@@ -2,15 +2,15 @@
   "expo": {
     "name": "GOATnative",
     "slug": "GOATnative",
-    "version": "1.0.1",
+    "version": "1.1.4",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/goat_icon.png",
     "userInterfaceStyle": "light",
     "plugins": [
       "react-native-ble-plx"
     ],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/goat_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
