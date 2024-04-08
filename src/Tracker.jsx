@@ -321,11 +321,12 @@ function Tracker(props) {
   return (
     <View style={styles.tracker}>
       <View style={styles.settingsButton}>
-        {/* Setting Button */}
-        <Image
-          source={require("../assets/settings_icon.png")}
-          style={styles.settingIcon}
-        />
+        <TouchableOpacity onPress={() => props.setCurrentPage("settings")}>
+          <Image
+            source={require("../assets/settings_icon.png")}
+            style={styles.settingIcon}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.backButton}>

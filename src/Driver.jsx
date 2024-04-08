@@ -145,6 +145,7 @@ function Driver() {
             setLoopThreshold={setLoopThreshold}
             gracePeriod={gracePeriod}
             setGracePeriod={setGracePeriod}
+            setCurrentPage={setCurrentPage}
           />
         );
       case "GOAT":

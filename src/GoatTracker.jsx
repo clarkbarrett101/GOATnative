@@ -124,10 +124,15 @@ function GoatTracker(props) {
           source={require("../assets/back_plaque.png")}
         />
       </TouchableOpacity>
-      <Image
+      <TouchableOpacity
         style={styles.setting_button}
-        source={require("../assets/settings_Plaque.png")}
-      />
+        onPress={() => props.setCurrentPage("settings")}
+      >
+        <Image
+          style={styles.setting_icon}
+          source={require("../assets/settings_Plaque.png")}
+        />
+      </TouchableOpacity>
 
       <Text
         style={{
@@ -302,6 +307,10 @@ const styles = StyleSheet.create({
     height: h_back_plaque,
     left: scaledLeft(0),
     top: scaledTop(0),
+  },
+  setting_icon: {
+    width: w_back_plaque,
+    height: h_back_plaque,
   },
   setting_button: {
     position: "absolute",

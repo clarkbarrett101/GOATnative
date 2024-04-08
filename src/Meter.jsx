@@ -1,16 +1,14 @@
 // Meter.js
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Meter = ({ label }) => {
-  const [value, setValue] = useState(0);
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+const Meter = ({ label, value, setValue }) => {
   const incrementValue = () => {
-    setValue(value + 1);
+    setValue(value + 0.1);
   };
 
   const decrementValue = () => {
-    setValue(value - 1);
+    setValue(value - 0.1);
   };
 
   return (
@@ -29,16 +27,17 @@ const Meter = ({ label }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
+    backgroundColor: "#FFFFFF",
   },
   label: {
     fontSize: 18,
     marginRight: 10,
   },
   button: {
-    backgroundColor: '#DDDDDD',
+    backgroundColor: "#DDDDDD",
     padding: 10,
     borderRadius: 5,
   },
@@ -51,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Meter;
+export { Meter };

@@ -93,11 +93,12 @@ function FitCheckTracker(props) {
           style={styles.settingsButton}
           colors={["#9E00FF", "#FF7F56"]}
         >
-          {/* Setting Button */}
-          <Image
-            source={require("../assets/settings_icon_white.png")}
-            style={styles.settingIcon}
-          />
+          <TouchableOpacity onPress={() => props.setCurrentPage("settings")}>
+            <Image
+              source={require("../assets/settings_icon_white.png")}
+              style={styles.settingIcon}
+            />
+          </TouchableOpacity>
         </LinearGradient>
 
         <LinearGradient
